@@ -1,4 +1,4 @@
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 import FirebaseAuthService from "../FirebaseAuthService";
 
 function LoginForm({ existingUser }) {
