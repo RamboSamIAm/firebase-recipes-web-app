@@ -2,6 +2,7 @@ import { useState } from "react";
 import FirebaseAuthService from "./FirebaseAuthService";
 import LoginForm from "./comps/LoginForm";
 import AddEditRecipeForm from "./comps/AddEditRecipeForm";
+import firebase from "./FirebaseConfig";
 
 import './App.css';
 import FirebaseFirestoreService from "./FirebaseFirestoreService";
@@ -19,7 +20,6 @@ function App() {
       console.log('handling is going through 1')
       // First argument "recipes" is the name of our collection
       const response = await FirebaseFirestoreService.createDocument('recipes', newRecipe);
-
       //This console.log does not run
       console.log('handling is going through 2')
       alert(`Succesfully created a recipe with an ID = ${response.id}`)
