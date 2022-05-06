@@ -22,7 +22,7 @@ function App() {
 
       //This console.log does not run
       console.log('handling is going through 2')
-      // alert(`Succesfully created a recipe with an ID = ${docRef.id}`)
+      alert(`Succesfully created a recipe with an ID = ${response.id}`)
     } catch (error) {
       alert(error.message)
     }
