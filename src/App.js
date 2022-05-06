@@ -2,7 +2,6 @@ import { useState } from "react";
 import FirebaseAuthService from "./FirebaseAuthService";
 import LoginForm from "./comps/LoginForm";
 import AddEditRecipeForm from "./comps/AddEditRecipeForm";
-import firebase from "./FirebaseConfig";
 
 import './App.css';
 import FirebaseFirestoreService from "./FirebaseFirestoreService";
