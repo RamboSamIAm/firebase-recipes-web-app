@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 
-function AddEditRecipeForm({ handleAddRecipe }) {
+function AddEditRecipeForm({ handleAddRecipe, saveDocumentToFirestore }) {
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
-    const [publishDate, setPublishDate] = useState(new Date().toISOString().split("T"[0]));
+    const [publishDate, setPublishDate] = useState(new Date().toISOString().split("T")[0]);
     const [directions, setDirections] = useState('');
     const [ingredients, setIngredients] = useState([]);
     const [ingredientName, setIngredientName] = useState('');
@@ -30,6 +30,16 @@ function AddEditRecipeForm({ handleAddRecipe }) {
             ingredients,
         };
 
+
+        console.log(
+            name,
+            category,
+            directions,
+            publishDate,
+            isPublished,
+            ingredients,)
+
+        // This is where we call the function from app.js where we get stuck on the await keyword.
         handleAddRecipe(newRecipe)
     }
 
