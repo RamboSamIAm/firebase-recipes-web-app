@@ -12,4 +12,8 @@ add images to recipes
 
 View project here:  https://fir-recipes-29e3e.web.app
 
+Use these credentials to login:
+username: "test@gmail.com"
+password: "Testing"
+
 Keep in mind this is a work in progress.
