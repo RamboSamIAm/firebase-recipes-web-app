@@ -1,8 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 
-function AddEditRecipeForm({ handleAddRecipe, saveDocumentToFirestore }) {
+function AddEditRecipeForm({ 
+    existingRecipe, 
+    handleAddRecipe, 
+    handleUpdateRecipe, 
+    handleDeleteRecipe,
+    handleEditRecipeCancel }) {
+    useEffect(() => {
+        if (existingRecipe) {
+            setName(existingRecipe.name)
+            setCategory(existingRecipe.category)
+            setDirections(existingRecipe.directions)
+            setPublishDate(existingRecipe.publishDate.toISOString().split("T")[0])
+            setIngredients(existingRecipe.ingredients)
+        } else {
+            resetForm()
+        }
+
+    }, [existingRecipe])
+
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [publishDate, setPublishDate] = useState(new Date().toISOString().split("T")[0]);
@@ -40,8 +58,15 @@ function AddEditRecipeForm({ handleAddRecipe, saveDocumentToFirestore }) {
             isPublished,
             ingredients,)
 
-        // This is where we call the function from app.js where we get stuck on the await keyword.
+
+        if (existingRecipe) {
+            handleUpdateRecipe(newRecipe, existingRecipe.id)
+        } else {
+         // This is where we call the function from app.js where we get stuck on the await keyword.
         handleAddRecipe(newRecipe)
+        }
+
+        resetForm();
     }
 
     function handleAddIngredient(e) {
@@ -63,9 +88,19 @@ function AddEditRecipeForm({ handleAddRecipe, saveDocumentToFirestore }) {
         // Set the ingredient name to ""
         setIngredientName("")
     }
+
+    function resetForm() {
+        setName("")
+        setCategory("")
+        setDirections("")
+        setPublishDate("")
+        setIngredients([])
+    }
  
     return <form onSubmit={handleRecipeFormSubmit} className='add-edit-recipe-form-container'>
-        <h2>Add a New Recipe</h2>
+        {
+            existingRecipe ? <h2>Update Recipe</h2> : <h2>Add a New Recipe</h2>
+        }
         <div className='top-form-section'>
             <div className='fields'>
                 <label className='recipe-label input-label'>
@@ -130,7 +165,20 @@ function AddEditRecipeForm({ handleAddRecipe, saveDocumentToFirestore }) {
             </div>
         </div>
         <div className='action-buttons'>
-            <button type='submit' className='primary-button action-button'>Create Recipe</button>
+            <button type='submit' className='primary-button action-button'>
+                {
+                    existingRecipe ? "Update Recipe" : "Create Recipe"
+                }
+            </button>
+            {
+                existingRecipe ? (
+                <>
+                <button type="button" onClick={handleEditRecipeCancel} className="primary-button action-button">Cancel</button>
+                <button type="button" className="primary-button action-button" onClick={() => handleDeleteRecipe(existingRecipe.id)}>
+                    Delete
+                    </button>
+                </>) : null
+            }
         </div>
     </form>
 }
